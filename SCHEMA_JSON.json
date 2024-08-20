@@ -1,0 +1,60 @@
+{
+    "id": 1,
+    "goal": "DESCRIPTION HERE",
+    "deadline": "DATE",
+    "team_member_id": 1,
+    "user_id": 1,
+    "project_manager": {
+        "id": 1,
+        "username": "Gian",
+        "password": "123",
+        "email": "giomaaghop19@gmail.com",
+        "role": "project_manager"
+    },
+    "team_members": [
+        {
+            "id": 1,
+            "username": "Gian",
+            "password": "123",
+            "email": "giomaaghop19@gmail.com",
+            "role": "project_manager",
+            "project_id": 1
+        },
+        {
+            "id": 2,
+            "username": "Mico",
+            "password": "123",
+            "email": "mico@gmail.com",
+            "role": "team_member",
+            "project_id": 1
+        },
+        {
+            "id": 3,
+            "username": "Jonathan",
+            "password": "123",
+            "email": "jonathan@gmail.com",
+            "role": "team_member",
+            "project_id": 1
+        }
+    ],
+    "tasks": [
+        {
+            "id": 1,
+            "description": "",
+            "due_date": "",
+            "priority": "",
+            "user_id": 3,
+            "team_member": {
+                "id": 3,
+                "username": "Jonathan",
+                "password": "123",
+                "email": "jonathan@gmail.com",
+                "role": "team_member"
+            },
+            "project_id": 1,
+            "comment": [
+
+            ]
+        }
+    ]
+}
