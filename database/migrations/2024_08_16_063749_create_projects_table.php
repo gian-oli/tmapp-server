@@ -14,8 +14,10 @@ class CreateProjectsTable extends Migration
             $table->date('deadline');
             $table->unsignedBigInteger('user_id'); // This references the project manager.
             $table->unsignedBigInteger('priority_id'); // This references the priority level.
+            $table->unsignedBigInteger('status_id'); // This references the status of project.
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priorities')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

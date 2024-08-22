@@ -35,4 +35,9 @@ class Project extends Model
     {
         return $this->belongsTo(Priority::class, 'priority_id');
     }
+
+    public function statuses()
+    {
+        return $this->belongsTo(Status::class, 'status_id');
+    }
 }

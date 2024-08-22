@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\StatusContract;
+use App\Repositories\StatusRepository;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\CommentRepository;
@@ -50,6 +52,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             PriorityContract::class,
             PriorityRepository::class
+        );
+        $this->app->bind(
+            StatusContract::class,
+            StatusRepository::class
         );
     }
 }
