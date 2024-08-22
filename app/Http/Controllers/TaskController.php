@@ -39,7 +39,8 @@ class TaskController extends Controller
                 'priority_id' => $request->priority_id,
                 'user_id' => $request->user_id,  #assigned to,
                 'project_id' => $request->project_id, #which project it belongs to,
-                'assigned_by' => $request->assigned_by #who assigned the project, only use email
+                'assigned_by' => $request->assigned_by, #who assigned the project, only use email
+                'status_id' => $request->status_id
             ];
             $result['data'] = $this->task_service->store($data);
         } catch (\Exception $e) {

@@ -10,10 +10,11 @@ class Project extends Model
     use HasFactory;
 
     protected $fillable = [
-        'goal',
+        'project_name',
         'deadline',
         'user_id', // project manager
-        'priority_id'
+        'priority_id',
+        'status_id'
     ];
 
     public function manager()
@@ -23,7 +24,7 @@ class Project extends Model
 
     public function team_members()
     {
-        return $this->hasMany(TeamMember::class, 'user_id');
+        return $this->hasMany(TeamMember::class, 'project_id');
     }
 
     public function tasks()

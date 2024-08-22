@@ -41,7 +41,16 @@ abstract class BaseRepository implements BaseContract
     ##projects
     public function loadProjectWithRelations()
     {
-        return $this->model->with(['manager', 'tasks.comments', 'team_members', 'priorities'])->get();
+        return $this->model
+            ->with([
+                'manager',
+                'tasks.comments',
+                'tasks.user',
+                'team_members.user',
+                'priorities',
+                'statuses'
+            ])
+            ->get();
     }
     ##team-members
     public function showProjectMembers($id)
@@ -51,6 +60,6 @@ abstract class BaseRepository implements BaseContract
     ##tasks
     public function showTasksWithRelation($id)
     {
-        return $this->model->with(['user', 'priorities', 'comments', 'project'])->where('project_id', $id)->get();
+        return $this->model->with(['user', 'priorities', 'comments', 'project', 'statuses'])->where('project_id', $id)->get();
     }
 }

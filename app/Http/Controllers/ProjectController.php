@@ -47,10 +47,11 @@ class ProjectController extends Controller
         $result = $this->successResponse('Project Stored Successfully');
         try {
             $data = [
-                "goal" => $request->goal,
+                "project_name" => $request->project_name,
                 "deadline" => $request->deadline,
                 "user_id" => $request->user_id,
-                "priority_id" => $request->priority_id
+                "priority_id" => $request->priority_id,
+                "status_id" => $request->status_id
             ];
             $result['data'] = $this->project_service->store($data);
         } catch (\Exception $e) {

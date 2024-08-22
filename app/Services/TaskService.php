@@ -27,7 +27,7 @@ class TaskService {
                 'due_date' => $task->due_date,
                 'assigned_by' => $task->assigned_by,
                 'priority_level' => $task->priorities->priority_name,
-                'project_name' => $task->project->goal,
+                'project_name' => $task->project->project_name,
                 'assigned_to' => $task->user->username,
                 'comments' => $task->comments ?? [],
             ];

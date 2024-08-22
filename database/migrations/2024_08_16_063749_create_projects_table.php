@@ -10,7 +10,7 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('goal');
+            $table->string('project_name');
             $table->date('deadline');
             $table->unsignedBigInteger('user_id'); // This references the project manager.
             $table->unsignedBigInteger('priority_id'); // This references the priority level.

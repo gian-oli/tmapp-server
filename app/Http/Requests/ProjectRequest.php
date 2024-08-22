@@ -27,7 +27,7 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'goal' => 'required|string|max:255',
+            'project_name' => 'required|string|max:255',
             'deadline' => 'required|date',
             'user_id' => 'required|exists:users,id',
             'priority_id' => 'required|exists:priorities,id'
@@ -42,9 +42,9 @@ class ProjectRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'goal.required' => 'The project goal is required.',
-            'goal.string' => 'The project goal must be a string.',
-            'goal.max' => 'The project goal cannot exceed 255 characters.',
+            'project_name.required' => 'The project project_name is required.',
+            'project_name.string' => 'The project project_name must be a string.',
+            'project_name.max' => 'The project project_name cannot exceed 255 characters.',
             'deadline.required' => 'The deadline is required.',
             'deadline.date' => 'The deadline must be a valid date.',
             'user_id.required' => 'The user ID is required.',
