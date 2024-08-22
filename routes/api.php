@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
@@ -19,12 +20,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::apiResource('/users', UserController::class);
-Route::apiResource('/projects', ProjectController::class);
-Route::apiResource('/tasks', TaskController::class);
-Route::apiResource('/team-members', TeamMemberController::class);
-Route::apiResource('/comments', CommentController::class);
+// Route::apiResource('/users', UserController::class);
+// Route::apiResource('/projects', ProjectController::class);
+// Route::apiResource('/tasks', TaskController::class);
+// Route::apiResource('/team-members', TeamMemberController::class);
+// Route::apiResource('/comments', CommentController::class);
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('user', [AuthController::class, 'showAuthenticatedUser']);
+    Route::get('users', [UserController::class, 'index']);
+    Route::apiResource('/projects', ProjectController::class);
+    Route::apiResource('/tasks', TaskController::class);
+    Route::apiResource('/team-members', TeamMemberController::class);
+    Route::apiResource('/comments', CommentController::class);
+});

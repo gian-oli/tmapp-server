@@ -6,6 +6,7 @@ use App\Http\Requests\ProjectRequest;
 use App\Services\ProjectService;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -16,12 +17,16 @@ class ProjectController extends Controller
     public function __construct(ProjectService $project_service)
     {
         $this->project_service = $project_service;
+        $this->middleware('auth:sanctum');
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return $this->errorResponse('Unauthorized');
+        }
         $result = $this->successResponse('Loaded Projects Successfully');
         try {
             $result['data'] = $this->project_service->loadProjectWithRelations();
@@ -36,6 +41,9 @@ class ProjectController extends Controller
      */
     public function store(ProjectRequest $request)
     {
+        if (!Auth::check()) {
+            return $this->errorResponse('Unauthorized');
+        }
         $result = $this->successResponse('Project Stored Successfully');
         try {
             $data = [
@@ -56,6 +64,9 @@ class ProjectController extends Controller
      */
     public function show(string $id)
     {
+        if (!Auth::check()) {
+            return $this->errorResponse('Unauthorized');
+        }
         $result = $this->successResponse('Project Loaded Successfully');
         try {
             $result['data'] = $this->project_service->show($id);
