@@ -13,6 +13,7 @@ interface BaseContract
     public function loadUserWithRole();
     ##projects
     public function loadProjectWithRelations();
+    public function showProjectWithRelations($id);
     ##tasks
     public function showTasksWithRelation($id);
     ##team-members

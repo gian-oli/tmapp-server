@@ -52,6 +52,21 @@ abstract class BaseRepository implements BaseContract
             ])
             ->get();
     }
+
+    public function showProjectWithRelations($id)
+    {
+        return $this->model
+            ->with([
+                'manager',
+                'tasks.comments',
+                'tasks.user',
+                'team_members.user',
+                'priorities',
+                'statuses'
+            ])
+            ->where('id', $id)
+            ->get();
+    }
     ##team-members
     public function showProjectMembers($id)
     {

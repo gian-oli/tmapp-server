@@ -20,11 +20,8 @@ class RoleSeeder extends Seeder
             "role_name" => "Admin"
         ],
         [
-            "role_name" => "Project Manager",
+            "role_name" => "Member",
         ],
-        [
-            "role_name" => "Team Member"
-        ]
     ];
     /**
      * Run the database seeds.

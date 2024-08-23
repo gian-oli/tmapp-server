@@ -6,6 +6,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class TeamMemberRequest extends FormRequest
 {
@@ -26,7 +27,13 @@ class TeamMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|unique:team_members,user_id,project_id|exists:users,id',
+            'user_id' => [
+                'required',
+                'exists:users,id',
+                Rule::unique('team_members')
+                    ->where('project_id', $this->input('project_id'))
+                    ->ignore($this->route('team_member_id')) // Optional: Ignore if updating a specific entry
+            ],
             'project_id' => 'required|exists:projects,id',
         ];
     }

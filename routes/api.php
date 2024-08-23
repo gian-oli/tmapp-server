@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'showAuthenticatedUser']);
     Route::get('users', [UserController::class, 'index']);
+    Route::get('/load-projects-full', [ProjectController::class, 'loadProjectWithRelations']);
+    Route::get('/show-project-full/{id}', [ProjectController::class, 'showProjectWithRelations']);
     Route::apiResource('/projects', ProjectController::class);
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/team-members', TeamMemberController::class);

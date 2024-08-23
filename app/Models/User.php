@@ -31,7 +31,7 @@ class User extends Authenticatable
 
     public function teamMembers()
     {
-        return $this->hasMany(TeamMember::class);
+        return $this->hasMany(TeamMember::class, 'project_id');
     }
 
     public function tasks()

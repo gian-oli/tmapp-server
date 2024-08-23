@@ -29,6 +29,19 @@ class ProjectController extends Controller
         }
         $result = $this->successResponse('Loaded Projects Successfully');
         try {
+            $result['data'] = $this->project_service->load();
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+    public function loadProjectWithRelations()
+    {
+        if (!Auth::check()) {
+            return $this->errorResponse('Unauthorized');
+        }
+        $result = $this->successResponse('Loaded Projects Successfully');
+        try {
             $result['data'] = $this->project_service->loadProjectWithRelations();
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
@@ -66,11 +79,25 @@ class ProjectController extends Controller
     public function show(string $id)
     {
         if (!Auth::check()) {
-            return $this->errorResponse('Unauthorized');
+            return $this->failedValidationResponse('Unauthorized');
         }
         $result = $this->successResponse('Project Loaded Successfully');
         try {
             $result['data'] = $this->project_service->show($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+
+    public function showProjectWithRelations($id)
+    {
+        if(!Auth::check()){
+            return $this->failedValidationResponse('Unauthorized');
+        }
+        $result = $this->successResponse('Project Loaded Successfully');
+        try {
+            $result['data'] = $this->project_service->showProjectWithRelations($id);
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
         }
