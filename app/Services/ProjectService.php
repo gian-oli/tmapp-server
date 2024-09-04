@@ -127,21 +127,28 @@ class ProjectService
                 $username => $tasksForMember->map(function ($task) {
                     return [
                         'task_id' => $task->id,
+                        'task_title' => $task->title,
                         'task_description' => $task->description,
                         'due_date' => $task->due_date,
                         'priority' => $task->priorities->priority_name,
+                        'status_id' => $task->status_id,
                         'status' => $task->statuses->status,
-                        'comments' => $task->comments
+                        'comments' => $task->comments,
                     ];
                 })->toArray()
             ];
         })->toArray();
-        
+
         // Ensure all members are included, even if they have no tasks
         $membersTasks = $members->mapWithKeys(function ($member) use ($membersTasks) {
             $username = $member->user->username;
             return [
-                $username => $membersTasks[$username] ?? [] // Add an empty array if no tasks exist
+                $username => [
+                    "id" => $member->user->id,
+                    "username" => $member->user->username,
+                    "data" => $membersTasks[$username] ?? [],
+                    "count" => count($membersTasks[$username] ?? [])
+                ],
             ];
         })->toArray();
 
@@ -149,6 +156,16 @@ class ProjectService
             'id' => $projects[0]->id,
             'project_name' => $projects[0]->project_name,
             'deadline' => $projects[0]->deadline,
+            'members_count' => count($members),
+            'members' => $members->map(function ($member) {
+                return [
+                    "team_member_id" => $member->id,
+                    "user_id" => $member->user_id,
+                    "username" => $member->user->username,
+                    "email" => $member->user->email,
+                    "role" => $member->user->roles->role_name
+                ];
+            }),
             'project_manager_id' => $manager?->id,
             'project_manager' => $manager?->username,
             'project_manager_email' => $manager?->email,

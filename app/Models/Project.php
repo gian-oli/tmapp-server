@@ -14,7 +14,8 @@ class Project extends Model
         'deadline',
         'user_id', // project manager
         'priority_id',
-        'status_id'
+        'status_id',
+        'finished_at'
     ];
 
     public function manager()

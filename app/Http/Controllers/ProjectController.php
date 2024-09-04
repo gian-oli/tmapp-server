@@ -64,7 +64,8 @@ class ProjectController extends Controller
                 "deadline" => $request->deadline,
                 "user_id" => $request->user_id,
                 "priority_id" => $request->priority_id,
-                "status_id" => $request->status_id
+                "status_id" => $request->status_id,
+                "finished_at" => null
             ];
             $result['data'] = $this->project_service->store($data);
         } catch (\Exception $e) {

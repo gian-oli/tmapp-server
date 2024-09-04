@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\UserController;
@@ -43,4 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/team-members', TeamMemberController::class);
     Route::apiResource('/comments', CommentController::class);
+    Route::apiResource('/roles', RoleController::class);
+    Route::apiResource('/statuses', StatusController::class);
+    Route::apiResource('/priorities', PriorityController::class);
 });

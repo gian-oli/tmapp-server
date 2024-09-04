@@ -9,7 +9,10 @@ class StatusService {
     public function __construct(StatusContract $status_contract){
         $this->status_contract = $status_contract;
     }
-
+    public function load()
+    {
+        return $this->status_contract->load();
+    }
     public function store($data)
     {
         return $this->status_contract->store($data);

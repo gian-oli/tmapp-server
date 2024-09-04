@@ -60,7 +60,7 @@ abstract class BaseRepository implements BaseContract
                 'manager',
                 'tasks.comments',
                 'tasks.user',
-                'team_members.user',
+                'team_members.user.roles',
                 'priorities',
                 'statuses'
             ])

@@ -33,10 +33,11 @@ class TaskController extends Controller
         $result = $this->successResponse('Task Stored Successfully');
         try {
             $data = [
-
+                'title' => $request->title,
                 'description' => $request->description,
                 'due_date' => $request->due_date,
                 'priority_id' => $request->priority_id,
+                'finished_at' => $request->finished_at || null,
                 'user_id' => $request->user_id,  #assigned to,
                 'project_id' => $request->project_id, #which project it belongs to,
                 'assigned_by' => $request->assigned_by, #who assigned the project, only use email

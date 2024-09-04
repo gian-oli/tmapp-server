@@ -20,25 +20,25 @@ class UserSeeder extends Seeder
         [
             "username" => "gian",
             "password" => "12345678",
-            "role_id" => "3",
+            "role_id" => 1,
             "email" => "gianoliver.maaghop@gmail.com"
         ],
         [
             "username" => "mico",
             "password" => "12345678",
-            "role_id" => "3",
+            "role_id" => 1,
             "email" => "mico.montanez@gmail.com"
         ],
         [
             "username" => "jonathan",
             "password" => "12345678",
-            "role_id" => "3",
+            "role_id" => 1,
             "email" => "jonathandave.detorres@gmail.com"
         ],
         [
             "username" => "reina",
             "password" => "12345678",
-            "role_id" => "3",
+            "role_id" => 1,
             "email" => "reinamae.sorisantos@gmail.com"
         ],
     ];
