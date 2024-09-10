@@ -16,7 +16,10 @@ interface BaseContract
     public function showProjectWithRelations($id);
     ##tasks
     public function showTasksWithRelation($id);
+    // public function assignMember($id, $data);
     ##team-members
     public function showProjectMembers($id);
+    ##column
+    public function backlogColumn($id);
 
 }

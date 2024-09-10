@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Repositories\ColumnRepository;
+use App\Repositories\Contracts\ColumnContract;
 use App\Repositories\Contracts\StatusContract;
+use App\Repositories\Contracts\SwimlaneContract;
 use App\Repositories\StatusRepository;
+use App\Repositories\SwimlaneRepository;
 use Illuminate\Support\ServiceProvider;
 
 use App\Repositories\CommentRepository;
@@ -56,6 +60,14 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             StatusContract::class,
             StatusRepository::class
+        );
+        $this->app->bind(
+            ColumnContract::class,
+            ColumnRepository::class
+        );
+        $this->app->bind(
+            SwimlaneContract::class,
+            SwimlaneRepository::class
         );
     }
 }

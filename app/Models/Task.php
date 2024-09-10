@@ -15,19 +15,13 @@ class Task extends Model
         'due_date',
         'priority_id',
         'user_id',
-        'project_id',
         'assigned_by',
-        'status_id'
+        'column_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function project()
-    {
-        return $this->belongsTo(Project::class, 'project_id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function comments()
@@ -40,8 +34,8 @@ class Task extends Model
         return $this->belongsTo(Priority::class, 'priority_id');
     }
 
-    public function statuses()
+    public function columns()
     {
-        return $this->belongsTo(Status::class, 'status_id');
+        return $this->belongsTo(Column::class, 'column_id');
     }
 }

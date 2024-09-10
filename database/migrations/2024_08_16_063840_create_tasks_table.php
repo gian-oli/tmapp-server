@@ -15,14 +15,12 @@ class CreateTasksTable extends Migration
             $table->date('due_date')->nullable();
             $table->date('finished_at')->nullable();
             $table->string('assigned_by')->nullable();
-            $table->unsignedBigInteger('user_id'); // This references the 'users' table for task owner.
-            $table->unsignedBigInteger('project_id'); // This references the 'projects' table.
+            $table->unsignedBigInteger('user_id')->nullable(); 
             $table->unsignedBigInteger('priority_id');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('column_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priorities')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('column_id')->references('id')->on('columns')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

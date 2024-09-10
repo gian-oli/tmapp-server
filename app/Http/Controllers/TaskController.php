@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskRequest;
+use App\Models\Column;
+use App\Services\ColumnService;
 use App\Services\TaskService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -12,10 +14,12 @@ class TaskController extends Controller
     use ResponseTrait;
 
     protected $task_service;
+    protected $column_service;
 
-    public function __construct(TaskService $task_service)
+    public function __construct(TaskService $task_service, ColumnService $column_service)
     {
         $this->task_service = $task_service;
+        $this->column_service = $column_service;
     }
     /**
      * Display a listing of the resource.
@@ -32,6 +36,10 @@ class TaskController extends Controller
     {
         $result = $this->successResponse('Task Stored Successfully');
         try {
+            $backlogColumn = $this->column_service->backlogColumn($request->swimlane_id);
+            if (!$backlogColumn) {
+                throw new \Exception('Backlog column not found for the specified swimlane.');
+            }
             $data = [
                 'title' => $request->title,
                 'description' => $request->description,
@@ -39,9 +47,8 @@ class TaskController extends Controller
                 'priority_id' => $request->priority_id,
                 'finished_at' => $request->finished_at || null,
                 'user_id' => $request->user_id,  #assigned to,
-                'project_id' => $request->project_id, #which project it belongs to,
                 'assigned_by' => $request->assigned_by, #who assigned the project, only use email
-                'status_id' => $request->status_id
+                'column_id' => $backlogColumn->id
             ];
             $result['data'] = $this->task_service->store($data);
         } catch (\Exception $e) {
@@ -67,10 +74,38 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function assignMember(Request $request, string $id)
     {
-        //
+        $result = $this->successResponse('Task Updated Successfully');
+        try {
+            $result['data'] = $this->task_service->update($id, ["user_id" => $request->user_id]);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
+
+    public function changeColumn(Request $request, string $id)
+    {
+        $result = $this->successResponse('Task Updated Successfully');
+        try {
+            $result['data'] = $this->task_service->update($id, ["column_id" => $request->column_id]);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+
+    // public function assignSwimlane(Request $request, string $id)
+    // {
+    //     $result = $this->successResponse('Task Updated Successfully');
+    //     try {
+    //         $result['data'] = $this->task_service->update($id, ["column_id" => $request->column_id]);
+    //     } catch (\Exception $e) {
+    //         $result = $this->errorResponse($e);
+    //     }
+    //     return $this->returnResponse($result);
+    // }
 
     /**
      * Remove the specified resource from storage.

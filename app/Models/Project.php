@@ -42,4 +42,9 @@ class Project extends Model
     {
         return $this->belongsTo(Status::class, 'status_id');
     }
+
+    public function swimlanes()
+    {
+        return $this->hasMany(Swimlane::class, 'project_id');
+    }
 }

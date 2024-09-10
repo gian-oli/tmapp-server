@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\SwimlaneController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\UserController;
@@ -49,4 +51,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/roles', RoleController::class);
     Route::apiResource('/statuses', StatusController::class);
     Route::apiResource('/priorities', PriorityController::class);
+    Route::apiResource('/swimlane', SwimlaneController::class);
+    Route::apiResource('/column', ColumnController::class);
+    Route::put('/assign-member/{id}', [TaskController::class, 'assignMember']);
+    Route::put('/change-column/{id}', [TaskController::class, 'changeColumn']);
+    // Route::put('/assign-swimlane/{id}', [TaskController::class, 'assignSwimlane']);
 });

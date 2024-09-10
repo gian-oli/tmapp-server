@@ -44,8 +44,7 @@ abstract class BaseRepository implements BaseContract
         return $this->model
             ->with([
                 'manager',
-                'tasks.comments',
-                'tasks.user',
+                'swimlanes.columns.tasks',
                 'team_members.user',
                 'priorities',
                 'statuses'
@@ -58,9 +57,8 @@ abstract class BaseRepository implements BaseContract
         return $this->model
             ->with([
                 'manager',
-                'tasks.comments',
-                'tasks.user',
-                'team_members.user.roles',
+                'swimlanes.columns.tasks.comments',
+                'team_members.user',
                 'priorities',
                 'statuses'
             ])
@@ -76,5 +74,11 @@ abstract class BaseRepository implements BaseContract
     public function showTasksWithRelation($id)
     {
         return $this->model->with(['user', 'priorities', 'comments', 'project', 'statuses'])->where('project_id', $id)->get();
+    }
+    ##column
+    public function backlogColumn($id){
+        return $this->model->where('swimlane_id', $id)
+        ->where('column_name', 'Backlog')
+        ->first();
     }
 }
