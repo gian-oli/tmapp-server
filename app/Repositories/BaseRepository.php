@@ -58,6 +58,8 @@ abstract class BaseRepository implements BaseContract
             ->with([
                 'manager',
                 'swimlanes.columns.tasks.comments',
+                'swimlanes.columns.tasks.priorities',
+                'swimlanes.columns.tasks.user',
                 'team_members.user',
                 'priorities',
                 'statuses'
@@ -65,6 +67,7 @@ abstract class BaseRepository implements BaseContract
             ->where('id', $id)
             ->get();
     }
+    
     ##team-members
     public function showProjectMembers($id)
     {

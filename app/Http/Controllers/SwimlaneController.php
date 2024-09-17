@@ -73,6 +73,12 @@ class SwimlaneController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = $this->successResponse('Successfully removed swimlane');
+        try {
+            $this->swimlane_service->delete($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse('Failed to remove swimlane');
+        }
+        return $this->returnResponse($result);
     }
 }

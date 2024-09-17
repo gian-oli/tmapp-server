@@ -19,4 +19,9 @@ class SwimlaneService {
     {
         return $this->swimlane_contract->show($id);
     }
+
+    public function delete($id)
+    {
+        return $this->swimlane_contract->delete($id);
+    }
 }
