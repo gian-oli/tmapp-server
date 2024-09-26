@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GanttChartRequest;
 use App\Services\GanttChartService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -32,10 +33,20 @@ class GanttChartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GanttChartRequest $request)
     {
         $result = $this->successResponse('Gantt Chart Successfully Stored');
-       
+        try {
+            $data = [
+                "name" => $request->name,
+                "status" => $request->status,
+                "percent_completed" => $request->percent_completed
+            ];
+            $result['data'] = $this->gantt_chart_service->store($data);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

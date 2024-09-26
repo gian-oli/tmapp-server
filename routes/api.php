@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\GanttChartController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
@@ -62,8 +63,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/backlog-to-ready/{swimlane_id}/{column_id}', [ColumnController::class, 'backlogToReady']);
     Route::put('/next-column/{swimlane_id}/{task_id}', [TaskController::class, 'nextColumn']);
     Route::put('previous-column/{swimlane_id}/{task_id}', [TaskController::class, 'previousColumn']);
+    Route::apiResource('/gantt-chart', GanttChartController::class);
 });
 
-Route::get('/test', function() {
+Route::get('/test', function () {
     return User::all();
 });
