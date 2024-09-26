@@ -24,6 +24,8 @@ return new class extends Migration
             $table->timestamp('actual_start_date')->nullable();
             $table->timestamp('actual_end_date')->nullable();
             $table->integer('actual_no_of_days')->nullable();
+            $table->unsignedBigInteger('gantt_chart_id');
+            $table->foreign('gantt_chart_id')->references('id')->on('gantt_charts')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,10 +12,9 @@ return new class extends Migration
     {
         Schema::create('gantt_charts', function (Blueprint $table) {
             $table->id();
-            $table->string('percent_completed');
-            $table->string('status');
-            $table->unsignedBigInteger('schedule_id');
-            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->string('name');
+            $table->string('percent_completed')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
