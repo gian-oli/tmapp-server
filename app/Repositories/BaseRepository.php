@@ -8,7 +8,6 @@ use App\Repositories\Contracts\BaseContract;
 abstract class BaseRepository implements BaseContract
 {
     protected $model;
-
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -19,7 +18,7 @@ abstract class BaseRepository implements BaseContract
     }
     public function show($id)
     {
-        return $this->model->where('id', $id)->get();
+        return $this->model->where('id', $id)->first();
     }
     public function store($data)
     {
@@ -51,7 +50,6 @@ abstract class BaseRepository implements BaseContract
             ])
             ->get();
     }
-
     public function showProjectWithRelations($id)
     {
         return $this->model
@@ -67,7 +65,14 @@ abstract class BaseRepository implements BaseContract
             ->where('id', $id)
             ->get();
     }
-    
+    public function loadMyProjects($id)
+    {
+        return $this->model
+            ->whereHas('team_members', function ($query) use ($id) {
+                $query->where('user_id', $id);
+            })
+            ->get();
+    }
     ##team-members
     public function showProjectMembers($id)
     {
@@ -79,9 +84,32 @@ abstract class BaseRepository implements BaseContract
         return $this->model->with(['user', 'priorities', 'comments', 'project', 'statuses'])->where('project_id', $id)->get();
     }
     ##column
-    public function backlogColumn($id){
+    public function backlogColumn($id)
+    {
         return $this->model->where('swimlane_id', $id)
-        ->where('column_name', 'Backlog')
-        ->first();
+            ->where('column_name', 'Backlog')
+            ->first();
+    }
+    public function columnTasks($id)
+    {
+        return $this->model
+            ->where('id', $id)
+            ->with('tasks')
+            ->first();
+    }
+    public function getTasksByColumnAndUser($column_id, $user_id)
+    {
+        return $this->model
+            ->where([['column_id', $column_id],['user_id', $user_id]])
+            ->get();
+    }
+
+    ##swimlanes
+    public function showSwimlane($id)
+    {
+        return $this->model
+            ->with(['columns.tasks'])
+            ->where('id', $id)
+            ->first();
     }
 }

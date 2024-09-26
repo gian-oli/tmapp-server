@@ -8,10 +8,12 @@ use App\Models\Column;
 class ColumnSeeder extends Seeder
 {
     protected $swimlaneId;
+    protected $columns;
 
-    public function __construct($swimlaneId)
+    public function __construct($swimlaneId, $columns)
     {
         $this->swimlaneId = $swimlaneId;
+        $this->columns = $columns;
     }
 
     /**
@@ -24,9 +26,9 @@ class ColumnSeeder extends Seeder
 
     protected function seedColumns($swimlaneId)
     {
-        $columns = ['Backlog', 'Ready', 'Work in Progress', 'Done'];
+        // $columns = ['Backlog', 'Ready', 'Work in Progress', 'Done'];
 
-        foreach ($columns as $columnName) {
+        foreach ($this->columns as $columnName) {
             Column::create([
                 'column_name' => $columnName,
                 'swimlane_id' => $swimlaneId,

@@ -8,4 +8,5 @@ interface ProjectContract {
     public function loadProjectWithRelations();
     public function show($id);
     public function showProjectWithRelations($id);
+    public function loadMyProjects($id);
 }

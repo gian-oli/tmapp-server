@@ -8,4 +8,5 @@ interface TaskContract {
     public function update($id, $data);
     public function showTasksWithRelation($id);
     // public function assignMember($id, $data);
+    public function getTasksByColumnAndUser($column_id, $user_id);
 }

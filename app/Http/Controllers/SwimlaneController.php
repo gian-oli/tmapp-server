@@ -29,35 +29,49 @@ class SwimlaneController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(SwimlaneRequest $request)
-{
-    $result = $this->successResponse('Swimlane successfully created');
-    try {
-        $data = [
-            "swimlane_name" => $request->swimlane_name,
-            "project_id" => $request->project_id,
-        ];
+    {
+        $result = $this->successResponse('Swimlane successfully created');
+        try {
+            $data = [
+                "swimlane_name" => $request->swimlane_name,
+                "project_id" => $request->project_id,
+            ];
 
-        // Store the swimlane
-        $swimlane = $this->swimlane_service->store($data);
+            // Store the swimlane
+            $swimlane = $this->swimlane_service->store($data);
 
-        // Trigger the ColumnSeeder with the newly created swimlane's ID
-        $columnSeeder = new ColumnSeeder($swimlane->id);
-        $columnSeeder->run();
+            // Trigger the ColumnSeeder with the newly created swimlane's ID
+            $columnOptions = [
+                'Development' => ['Backlog', 'Ready', 'Work in Progress', 'For Checking', 'Done'],
+                'Testing' => ['Backlog', 'Ready', 'Work in Progress', 'Failed', 'Passed']
+            ];
 
-        // Attach the swimlane data to the result
-        $result['data'] = $swimlane;
-    } catch (\Exception $e) {
-        $result = $this->errorResponse('Failed to create swimlane');
+            $columns = $columnOptions[$request->project_type] ?? $columnOptions['Development'];
+
+            $columnSeeder = new ColumnSeeder($swimlane->id, $columns);
+            $columnSeeder->run();
+
+
+            // Attach the swimlane data to the result
+            $result['data'] = $swimlane;
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
-    return $this->returnResponse($result);
-}
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $result = $this->successResponse('Swimlane fetched successfully');
+        try {
+            $result['data'] = $this->swimlane_service->showSwimlane($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**
@@ -77,7 +91,7 @@ class SwimlaneController extends Controller
         try {
             $this->swimlane_service->delete($id);
         } catch (\Exception $e) {
-            $result = $this->errorResponse('Failed to remove swimlane');
+            $result = $this->errorResponse($e);
         }
         return $this->returnResponse($result);
     }

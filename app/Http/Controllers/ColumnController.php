@@ -46,7 +46,25 @@ class ColumnController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $result = $this->successResponse('Column fetched Successfully');
+        try {
+            $result['data'] = $this->column_service->columnTasks($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+
+    public function backlogToReady($swimlane_id, $column_id)
+    {
+        $result = $this->successResponse('Column Updated Successfully');
+        try {
+            $result['data'] = $this->column_service->backlogToReady($swimlane_id, $column_id);
+
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

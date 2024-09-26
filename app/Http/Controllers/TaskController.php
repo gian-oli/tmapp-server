@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BatchTaskRequest;
 use App\Http\Requests\TaskRequest;
 use App\Models\Column;
 use App\Services\ColumnService;
@@ -43,6 +44,8 @@ class TaskController extends Controller
             $data = [
                 'title' => $request->title,
                 'description' => $request->description,
+                'start_date' => $request->start_date,
+                'color_name' => $request->color_name,
                 'due_date' => $request->due_date,
                 'priority_id' => $request->priority_id,
                 'finished_at' => $request->finished_at || null,
@@ -56,6 +59,45 @@ class TaskController extends Controller
         }
         return $this->returnResponse($result);
     }
+
+    public function batchStore(BatchTaskRequest $request)
+    {
+        $result = $this->successResponse("Tasks Stored Successfully");
+        try {
+            // Retrieve and validate the tasks from the request
+            $tasks = collect($request->validated()['tasks'])->map(function ($task) {
+                // Get the backlog column based on the swimlane ID
+                $backlogColumn = $this->column_service->backlogColumn($task['swimlane_id']);
+                
+                // Throw an exception if no backlog column is found
+                if (!$backlogColumn) {
+                    throw new \Exception('Backlog column not found for the specified swimlane.');
+                }
+                
+                // Return the task with the updated column_id
+                $task['column_id'] = $backlogColumn->id;
+                return $task;
+            });
+            // Now store the modified tasks using the batchStore service
+            $result['data'] = $this->task_service->batchStore($tasks->toArray());
+        } catch (\Exception $e) {
+            // Handle exceptions and return an error response
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+
+    // public function batchUpdate(BatchTaskRequest $request)
+    // {
+    //     $result = $this->successResponse("Task updated successfully");
+    //     try {
+    //         // $tasks = collect($request->validated()['tasks'])->map(function ($task) {
+    //         //     if($task->}
+    //         // })
+    //     } catch (\Exception $e) {
+
+    //     }
+    // }
 
     /**
      * Display the specified resource.
@@ -95,7 +137,26 @@ class TaskController extends Controller
         }
         return $this->returnResponse($result);
     }
-
+    public function nextColumn($swimlane_id, $task_id)
+    {
+        $result = $this->successResponse('Task Updated Successfully');
+        try {
+            $result['data'] = $this->task_service->nextColumn($swimlane_id, $task_id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+    public function previousColumn($swimlane_id, $task_id)
+    {
+        $result = $this->successResponse('Task Updated Successfully');
+        try {
+            $result['data'] = $this->task_service->previousColumn($swimlane_id, $task_id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
     // public function assignSwimlane(Request $request, string $id)
     // {
     //     $result = $this->successResponse('Task Updated Successfully');

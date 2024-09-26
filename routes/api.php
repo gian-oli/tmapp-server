@@ -11,6 +11,7 @@ use App\Http\Controllers\SwimlaneController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamMemberController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/load-projects-full', [ProjectController::class, 'loadProjectWithRelations']);
     Route::get('/show-project-full/{id}', [ProjectController::class, 'showProjectWithRelations']);
     Route::apiResource('/projects', ProjectController::class);
+    Route::get('/my-projects/{id}', [ProjectController::class, 'loadMyProjects']);
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/team-members', TeamMemberController::class);
     Route::apiResource('/comments', CommentController::class);
@@ -55,5 +57,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/column', ColumnController::class);
     Route::put('/assign-member/{id}', [TaskController::class, 'assignMember']);
     Route::put('/change-column/{id}', [TaskController::class, 'changeColumn']);
+    Route::post('/batch-tasks', [TaskController::class, 'batchStore']);
     // Route::put('/assign-swimlane/{id}', [TaskController::class, 'assignSwimlane']);
+    Route::put('/backlog-to-ready/{swimlane_id}/{column_id}', [ColumnController::class, 'backlogToReady']);
+    Route::put('/next-column/{swimlane_id}/{task_id}', [TaskController::class, 'nextColumn']);
+    Route::put('previous-column/{swimlane_id}/{task_id}', [TaskController::class, 'previousColumn']);
+});
+
+Route::get('/test', function() {
+    return User::all();
 });

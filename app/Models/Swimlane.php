@@ -16,10 +16,10 @@ class Swimlane extends Model
 
     protected $guarded = ['id'];
 
-    public function tasks()
-    {
-        return $this->hasMany(Task::class, 'swimlane_id', 'id');
-    }
+    // public function tasks()
+    // {
+    //     return $this->hasMany(Task::class, 'swimlane_id', 'id');
+    // }
 
     public function columns()
     {

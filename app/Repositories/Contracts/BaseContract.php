@@ -14,6 +14,7 @@ interface BaseContract
     ##projects
     public function loadProjectWithRelations();
     public function showProjectWithRelations($id);
+    public function loadMyProjects($id);
     ##tasks
     public function showTasksWithRelation($id);
     // public function assignMember($id, $data);
@@ -21,5 +22,9 @@ interface BaseContract
     public function showProjectMembers($id);
     ##column
     public function backlogColumn($id);
+    public function columnTasks($id);
+    public function getTasksByColumnAndUser($column_id, $user_id);
 
+    ##swimlanes
+    public function showSwimlane($id);
 }

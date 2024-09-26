@@ -30,6 +30,8 @@ class TaskRequest extends FormRequest
         return [
             'title' => 'required|string',
             'description' => 'nullable|string',
+            'color_name' => 'nullable|string',
+            'start_date' => 'nullable|date',
             'due_date' => 'nullable|date',
             'finished_at' => 'nullable|date|after_or_equal:due_date',
             'assigned_by' => 'nullable|string',
@@ -58,7 +60,9 @@ class TaskRequest extends FormRequest
             'title.string' => 'The title must be a string.',
             
             'description.string' => 'The description must be a string.',
+            'color_name.string' => 'The color name must be a string.',
             
+            'start_date.date' => 'The start date must be a valid date.',
             'due_date.date' => 'The due date must be a valid date.',
             
             'finished_at.date' => 'The finished at date must be a valid date.',

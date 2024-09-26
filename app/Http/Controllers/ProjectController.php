@@ -64,6 +64,7 @@ class ProjectController extends Controller
                 "deadline" => $request->deadline,
                 "user_id" => $request->user_id,
                 "priority_id" => $request->priority_id,
+                "project_type" => $request->project_type,
                 "status_id" => $request->status_id,
                 "finished_at" => null
             ];
@@ -99,6 +100,20 @@ class ProjectController extends Controller
         $result = $this->successResponse('Project Loaded Successfully');
         try {
             $result['data'] = $this->project_service->showProjectWithRelations($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
+    }
+
+    public function loadMyProjects($id)
+    {
+        if(!Auth::check()){
+            return $this->failedValidationResponse('Unauthorized');
+        }
+        $result = $this->successResponse('Projects Loaded Successfully');
+        try {
+            $result['data'] = $this->project_service->loadMyProjects($id);
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
         }

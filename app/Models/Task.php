@@ -17,6 +17,8 @@ class Task extends Model
         'user_id',
         'assigned_by',
         'column_id',
+        'color_name',
+        'start_date'
     ];
 
     public function user()

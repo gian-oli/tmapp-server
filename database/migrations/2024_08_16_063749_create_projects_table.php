@@ -11,6 +11,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('project_name');
+            $table->string('project_type');
             $table->date('deadline');
             $table->date('finished_at')->nullable();
             $table->unsignedBigInteger('user_id'); // This references the project manager.

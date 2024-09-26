@@ -12,8 +12,10 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->text('title');
             $table->text('description')->nullable();
-            $table->date('due_date')->nullable();
-            $table->date('finished_at')->nullable();
+            $table->text('color_name')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('due_date')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->string('assigned_by')->nullable();
             $table->unsignedBigInteger('user_id')->nullable(); 
             $table->unsignedBigInteger('priority_id');
