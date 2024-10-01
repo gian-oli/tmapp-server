@@ -15,12 +15,10 @@ use App\Repositories\Contracts\PriorityContract;
 use App\Repositories\Contracts\RoleContract;
 use App\Repositories\Contracts\UserContract;
 use App\Repositories\Contracts\ScheduleContract;
-use App\Repositories\Contracts\TargetDateContract;
-use App\Repositories\Contracts\TotalDurationContract;
-use App\Repositories\Contracts\NoWorkContract;
-use App\Repositories\NoWorkRepository;
-use App\Repositories\TotalDurationRepository;
-use App\Repositories\TargetDateRepository;
+use App\Repositories\Contracts\ActualDateContract;
+use App\Repositories\Contracts\PlanDateContract;
+use App\Repositories\ActualDateRepository;
+use App\Repositories\PlanDateRepository;
 use App\Repositories\ScheduleRepository;
 use App\Repositories\ColumnRepository;
 use App\Repositories\GanttChartRepository;
@@ -87,16 +85,12 @@ class RepositoryServiceProvider extends ServiceProvider
             ScheduleRepository::class
         );
         $this->app->bind(
-            TargetDateContract::class,
-            TargetDateRepository::class
+            ActualDateContract::class,
+            ActualDateRepository::class
         );
         $this->app->bind(
-            TotalDurationContract::class,
-            TotalDurationRepository::class
-        );
-        $this->app->bind(
-            NoWorkContract::class,
-            NoWorkRepository::class
+            PlanDateContract::class,
+            PlanDateRepository::class
         );
     }
 }

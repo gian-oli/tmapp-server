@@ -30,7 +30,8 @@ class ProjectRequest extends FormRequest
             'project_name' => 'required|string|max:255',
             'deadline' => 'required|date',
             'user_id' => 'required|exists:users,id',
-            'priority_id' => 'required|exists:priorities,id'
+            'priority_id' => 'required|exists:priorities,id',
+            'schedule_id' => 'required'
         ];
     }
 
@@ -51,6 +52,7 @@ class ProjectRequest extends FormRequest
             'user_id.exists' => 'The user ID must exist in the users table.',
             'priority_id.required' => 'The priority ID is required.',
             'priority_id.exists' => 'The priority ID must exist in the users table.',
+            'schedule_id.required' => 'The schedule ID is required.',
         ];
     }
 

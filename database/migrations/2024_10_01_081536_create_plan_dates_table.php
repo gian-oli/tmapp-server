@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('total_durations', function (Blueprint $table) {
+        Schema::create('plan_dates', function (Blueprint $table) {
             $table->id();
-            $table->integer('plan');
-            $table->integer('actual');
-            $table->unsignedBigInteger('gantt_chart_id');
-            $table->foreign('gantt_chart_id')->references('id')->on('gantt_charts')->onDelete('cascade');
+            $table->timestamp('date');
+            $table->float('time_spent');
+            $table->unsignedBigInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('total_durations');
+        Schema::dropIfExists('plan_dates');
     }
 };

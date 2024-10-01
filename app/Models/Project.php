@@ -16,7 +16,8 @@ class Project extends Model
         'user_id', // project manager
         'priority_id',
         'status_id',
-        'finished_at'
+        'finished_at',
+        'schedule_id'
     ];
 
     public function manager()

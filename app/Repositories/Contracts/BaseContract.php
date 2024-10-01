@@ -24,7 +24,8 @@ interface BaseContract
     public function backlogColumn($id);
     public function columnTasks($id);
     public function getTasksByColumnAndUser($column_id, $user_id);
-
     ##swimlanes
     public function showSwimlane($id);
+    ##gantt chart
+    public function getGanttChart();
 }

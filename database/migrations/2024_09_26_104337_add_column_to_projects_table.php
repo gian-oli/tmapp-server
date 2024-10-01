@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->unsignedBigInteger('gantt_chart_id');
-            $table->foreign('gantt_chart_id')->references('id')->on('gantt_charts')->onDelete('cascade');
+            $table->unsignedBigInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn(`gantt_chart_id`);
+            $table->dropColumn(`schedule_id`);
         });
     }
 };

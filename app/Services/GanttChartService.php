@@ -18,4 +18,9 @@ class GanttChartService {
     {
         return $this->gantt_chart_contract->store($data);
     }
+
+    public function getGanttChart()
+    {
+        return $this->gantt_chart_contract->getGanttChart();
+    }
 }

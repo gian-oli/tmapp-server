@@ -7,6 +7,7 @@ use App\Http\Controllers\GanttChartController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\SwimlaneController;
 use App\Http\Controllers\TaskController;
@@ -64,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/next-column/{swimlane_id}/{task_id}', [TaskController::class, 'nextColumn']);
     Route::put('previous-column/{swimlane_id}/{task_id}', [TaskController::class, 'previousColumn']);
     Route::apiResource('/gantt-chart', GanttChartController::class);
+    Route::apiResource('/schedule', ScheduleController::class);
 });
 
 Route::get('/test', function () {

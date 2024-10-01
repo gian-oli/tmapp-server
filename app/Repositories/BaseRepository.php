@@ -103,7 +103,6 @@ abstract class BaseRepository implements BaseContract
             ->where([['column_id', $column_id],['user_id', $user_id]])
             ->get();
     }
-
     ##swimlanes
     public function showSwimlane($id)
     {
@@ -111,5 +110,12 @@ abstract class BaseRepository implements BaseContract
             ->with(['columns.tasks'])
             ->where('id', $id)
             ->first();
+    }
+    ##gantt chart
+    public function getGanttChart()
+    {
+        return $this->model
+            ->with(['schedules.users', 'schedules.project'])
+            ->get();
     }
 }

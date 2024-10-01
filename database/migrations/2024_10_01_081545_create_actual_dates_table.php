@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('target_dates', function (Blueprint $table) {
+        Schema::create('actual_dates', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start');
-            $table->timestamp('end');
-            $table->unsignedBigInteger('gantt_chart_id');
-            $table->foreign('gantt_chart_id')->references('id')->on('gantt_charts')->onDelete('cascade');
+            $table->timestamp('date');
+            $table->longText('note');
+            $table->float('time_spent');
+            $table->unsignedBigInteger('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('target_dates');
+        Schema::dropIfExists('actual_dates');
     }
 };

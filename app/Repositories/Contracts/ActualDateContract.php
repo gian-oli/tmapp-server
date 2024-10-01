@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Contracts;
 
-interface ScheduleContract {
-    public function load();
+interface ActualDateContract {
     public function store($data);
+    public function load();
 }

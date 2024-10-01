@@ -15,10 +15,6 @@ class GanttChart extends Model
     ];
 
     protected $guarded = ['id'];
-    public function projects()
-    {
-        return $this->hasMany(Project::class, 'gantt_chart_id', 'id');
-    }
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'gantt_chart_id', 'id');
@@ -31,4 +27,8 @@ class GanttChart extends Model
     {
         return $this->hasOne(TotalDuration::class, 'gantt_chart_id', 'id');
     }
+    // public function users()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id', 'id');
+    // }
 }

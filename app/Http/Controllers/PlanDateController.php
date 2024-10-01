@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\GanttChartRequest;
-use App\Services\GanttChartService;
+use App\Http\Requests\PlanDateRequest;
+use App\Services\PlanDateService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
-class GanttChartController extends Controller
+class PlanDateController extends Controller
 {
     use ResponseTrait;
 
-    protected $gantt_chart_service;
-    public function __construct(GanttChartService $gantt_chart_service)
+    protected $plan_date_service;
+    public function __construct(PlanDateService $plan_date_service)
     {
-        $this->gantt_chart_service = $gantt_chart_service;
+        $this->plan_date_service = $plan_date_service;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $result = $this->successResponse('Gantt Chart Load Successfully');
+        $result = $this->successResponse('Plan Date Successfully Loaded');
         try {
-            $result['data'] = $this->gantt_chart_service->getGanttChart();
+            $result['data'] = $this->plan_date_service->load();
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
         }
@@ -33,16 +33,16 @@ class GanttChartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(GanttChartRequest $request)
+    public function store(PlanDateRequest $request)
     {
-        $result = $this->successResponse('Gantt Chart Successfully Stored');
+        $result = $this->successResponse('Plan Date Stored Successfully');
         try {
             $data = [
-                "name" => $request->name,
-                "status" => $request->status,
-                "percent_completed" => $request->percent_completed
+                'date' => $request->date,
+                'time_spent' => $request->time_spent,
+                'schedule_id' => $request->schedule_id
             ];
-            $result['data'] = $this->gantt_chart_service->store($data);
+            $this->plan_date_service->store($data);
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
         }
