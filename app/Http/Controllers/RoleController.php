@@ -23,16 +23,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        // if (!Auth::check()) {
-        //     return $this->errorResponse('Unauthorized');
-        // }
-        // $result = $this->successResponse('Loaded Projects Successfully');
-        // try {
-        //     $result['data'] = $this->role_service->load();
-        // } catch (\Exception $e) {
-        //     $result = $this->errorResponse($e);
-        // }
-        // return $this->returnResponse($result);
+        $result = $this->successResponse('Loaded Projects Successfully');
+        try {
+            $result['data'] = $this->role_service->load();
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('actual_dates', function (Blueprint $table) {
             $table->id();
             $table->timestamp('date');
-            $table->longText('note');
+            $table->longText('note')->nullable();
             $table->float('time_spent');
             $table->unsignedBigInteger('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');

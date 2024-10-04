@@ -21,4 +21,8 @@ class PlanDateService
     {
         return $this->plan_date_contract->store($data);
     }
+    public function delete($id)
+    {
+        return $this->plan_date_contract->delete($id);
+    }
 }

@@ -6,7 +6,6 @@ use App\Traits\ResponseTrait;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Validation\Rule;
 
 class GanttChartRequest extends FormRequest
 {
@@ -30,7 +29,9 @@ class GanttChartRequest extends FormRequest
         return [
             'name' => 'required|string',
             'status' => 'nullable|string',
-            'percent_completed' => 'nullable|string'
+            'date_from' => 'required|date|date_format:Y-m-d',
+            'date_to' => 'required|date|date_format:Y-m-d|after_or_equal:date_from',
+            'percent_completed' => 'nullable|string',
         ];
     }
 
@@ -42,10 +43,15 @@ class GanttChartRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'number.required' => 'Name is required',
-            'number.string' => 'Name should be a string',
+            'name.required' => 'Name is required',
+            'name.string' => 'Name should be a string',
             'status.string' => 'Status should be a string',
-            'percent_completed.string' => 'Percent completed should be a string'
+            'percent_completed.string' => 'Percent completed should be a string',
+            'date_from.date_format' => 'Date format should be in Y-m-d format',
+            'date_to.date_format' => 'Date format should be in Y-m-d format',
+            'date_from.required' => 'Start date is required',
+            'date_to.required' => 'End date is required',
+            'date_to.after_or_equal' => 'End date must be the same or after the start date',
         ];
     }
 

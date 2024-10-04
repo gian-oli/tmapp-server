@@ -29,13 +29,7 @@ class ScheduleRequest extends FormRequest
         return [
             'name' => 'required|string',
             'status' => 'required|string',
-            'percent_completed' => 'nullable|string',
-            'plan_start_date' => 'nullable|string',
-            'plan_end_date' => 'nullable|string',
-            'plan_no_of_days' => 'nullable|string',
-            'actual_start_date' => 'nullable|string',
-            'actual_end_date' => 'nullable|string',
-            'actual_no_of_days' => 'nullable|string',
+            'user_id' => 'required',
             'gantt_chart_id' => 'required'
         ];
     }
@@ -51,14 +45,8 @@ class ScheduleRequest extends FormRequest
             'name.required' => 'The name field is required.',
             'name.string' => 'The name must be a valid string.',
             'status.string' => 'The status must be a valid string.',
-            'percent_completed.string' => 'The percent completed must be a valid string.',
-            'plan_start_date.string' => 'The plan start date must be a valid string.',
-            'plan_end_date.string' => 'The plan end date must be a valid string.',
-            'plan_no_of_days.string' => 'The plan number of days must be a valid string.',
-            'actual_start_date.string' => 'The actual start date must be a valid string.',
-            'actual_end_date.string' => 'The actual end date must be a valid string.',
-            'actual_no_of_days.string' => 'The actual number of days must be a valid string.',
             'gantt_chart_id.required' => 'The Gantt chart ID is required.',
+            'user_id.required' => 'The User ID is required.',
         ];
     }
 

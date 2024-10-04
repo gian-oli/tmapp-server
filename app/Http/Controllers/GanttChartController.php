@@ -40,6 +40,8 @@ class GanttChartController extends Controller
             $data = [
                 "name" => $request->name,
                 "status" => $request->status,
+                "date_from" => $request->date_from,
+                "date_to" => $request->date_to,
                 "percent_completed" => $request->percent_completed
             ];
             $result['data'] = $this->gantt_chart_service->store($data);

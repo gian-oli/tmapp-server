@@ -28,7 +28,6 @@ class ActualDateRequest extends FormRequest
     {
         return [
             'date' => 'required|date|date_format:Y-m-d',
-            'note' => 'required|string',
             'time_spent' => 'required|numeric',
             'schedule_id' => 'required|integer' // Assuming schedule_id is an integer.
         ];
@@ -45,7 +44,6 @@ class ActualDateRequest extends FormRequest
             'date.required' => 'The date is required.',
             'date.date' => 'The date must be a valid date.',
             'date.date_format' => 'The date format must be Y-m-d.',
-            'note.required' => 'The note is required.',
             'time_spent.required' => 'The time spent is required.',
             'time_spent.numeric' => 'The time spent must be a number.',
             'schedule_id.required' => 'The schedule id is required.',

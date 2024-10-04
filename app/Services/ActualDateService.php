@@ -18,4 +18,8 @@ class ActualDateService {
     {
         return $this->actual_date_contract->store($data);
     }
+    public function delete($id)
+    {
+        return $this->actual_date_contract->delete($id);
+    }
 }

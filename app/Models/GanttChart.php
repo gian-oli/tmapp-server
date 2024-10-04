@@ -11,6 +11,8 @@ class GanttChart extends Model
     protected $fillable = [
         'name',
         'status',
+        'date_from',
+        'date_to',
         'percent_completed'
     ];
 
@@ -19,16 +21,4 @@ class GanttChart extends Model
     {
         return $this->hasMany(Schedule::class, 'gantt_chart_id', 'id');
     }
-    public function target_date()
-    {
-        return $this->hasOne(TargetDate::class, 'gantt_chart_id', 'id');
-    }
-    public function total_duration()
-    {
-        return $this->hasOne(TotalDuration::class, 'gantt_chart_id', 'id');
-    }
-    // public function users()
-    // {
-    //     return $this->belongsTo(User::class, 'user_id', 'id');
-    // }
 }

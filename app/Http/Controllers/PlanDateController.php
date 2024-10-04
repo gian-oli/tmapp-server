@@ -70,6 +70,12 @@ class PlanDateController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = $this->successResponse('Plan date successfully removed');
+        try {
+            $result['data'] = $this->plan_date_service->delete($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 }

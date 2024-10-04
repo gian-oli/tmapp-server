@@ -16,4 +16,9 @@ class ActualDate extends Model
         'schedule_id'
     ];
     protected $guarded = ['id'];
+
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id', 'id');
+    }
 }

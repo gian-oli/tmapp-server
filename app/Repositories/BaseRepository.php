@@ -115,7 +115,7 @@ abstract class BaseRepository implements BaseContract
     public function getGanttChart()
     {
         return $this->model
-            ->with(['schedules.users', 'schedules.project'])
+            ->with(['schedules.users', 'schedules.project', 'schedules.actual_dates', 'schedules.plan_dates'])
             ->get();
     }
 }

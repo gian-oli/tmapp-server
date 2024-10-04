@@ -14,6 +14,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('percent_completed')->nullable();
+            $table->timestamp('date_from');
+            $table->timestamp('date_to');
             $table->string('status')->nullable();
             $table->timestamps();
         });

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ActualDateController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ColumnController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GanttChartController;
+use App\Http\Controllers\PlanDateController;
 use App\Http\Controllers\PriorityController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
@@ -40,6 +42,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::get('/role', [RoleController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
@@ -66,6 +69,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('previous-column/{swimlane_id}/{task_id}', [TaskController::class, 'previousColumn']);
     Route::apiResource('/gantt-chart', GanttChartController::class);
     Route::apiResource('/schedule', ScheduleController::class);
+    Route::apiResource('/plan-date', PlanDateController::class);
+    Route::apiResource('/actual-date', ActualDateController::class);
 });
 
 Route::get('/test', function () {
