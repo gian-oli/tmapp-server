@@ -118,4 +118,11 @@ abstract class BaseRepository implements BaseContract
             ->with(['schedules.users', 'schedules.project', 'schedules.actual_dates', 'schedules.plan_dates'])
             ->get();
     }
+    ##actual dates
+    public function showActualDates($schedule_id)
+    {
+        return $this->model
+            ->where('schedule_id', $schedule_id)
+            ->get();
+    }
 }

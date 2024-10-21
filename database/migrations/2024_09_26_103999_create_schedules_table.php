@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('status');
+            $table->string('percent_completed')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('gantt_chart_id');
             $table->foreign('gantt_chart_id')->references('id')->on('gantt_charts')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

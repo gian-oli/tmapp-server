@@ -28,4 +28,6 @@ interface BaseContract
     public function showSwimlane($id);
     ##gantt chart
     public function getGanttChart();
+    ##actual dates
+    public function showActualDates($schedule_id);
 }

@@ -54,7 +54,13 @@ class ActualDateController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $result = $this->successResponse('Actual Date Load Successfully');
+        try {
+            $result['data'] = $this->actual_date_service->show($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

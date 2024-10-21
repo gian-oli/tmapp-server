@@ -62,7 +62,17 @@ class ScheduleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $result = $this->successResponse('Schedule Updated Successfully');
+        try {
+            $data = [
+                'percent_completed' => $request->percent_completed,
+                'status' => $request->status,
+            ];
+            $result['data'] =$this->schedule_service->update($id, $data);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

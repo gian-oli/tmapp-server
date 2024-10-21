@@ -45,13 +45,6 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('/role', [RoleController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::get('user', [AuthController::class, 'showAuthenticatedUser']);
-    Route::get('users', [UserController::class, 'index']);
-    Route::get('/load-projects-full', [ProjectController::class, 'loadProjectWithRelations']);
-    Route::get('/show-project-full/{id}', [ProjectController::class, 'showProjectWithRelations']);
-    Route::apiResource('/projects', ProjectController::class);
-    Route::get('/my-projects/{id}', [ProjectController::class, 'loadMyProjects']);
     Route::apiResource('/tasks', TaskController::class);
     Route::apiResource('/team-members', TeamMemberController::class);
     Route::apiResource('/comments', CommentController::class);
@@ -60,6 +53,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('/priorities', PriorityController::class);
     Route::apiResource('/swimlane', SwimlaneController::class);
     Route::apiResource('/column', ColumnController::class);
+    Route::apiResource('/projects', ProjectController::class);
+    Route::apiResource('/gantt-chart', GanttChartController::class);
+    Route::apiResource('/schedule', ScheduleController::class);
+    Route::apiResource('/plan-date', PlanDateController::class);
+    Route::apiResource('/actual-date', ActualDateController::class);
+    
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::get('user', [AuthController::class, 'showAuthenticatedUser']);
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('/load-projects-full', [ProjectController::class, 'loadProjectWithRelations']);
+    Route::get('/show-project-full/{id}', [ProjectController::class, 'showProjectWithRelations']);
+    Route::get('/my-projects/{id}', [ProjectController::class, 'loadMyProjects']);
     Route::put('/assign-member/{id}', [TaskController::class, 'assignMember']);
     Route::put('/change-column/{id}', [TaskController::class, 'changeColumn']);
     Route::post('/batch-tasks', [TaskController::class, 'batchStore']);
@@ -67,10 +72,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/backlog-to-ready/{swimlane_id}/{column_id}', [ColumnController::class, 'backlogToReady']);
     Route::put('/next-column/{swimlane_id}/{task_id}', [TaskController::class, 'nextColumn']);
     Route::put('previous-column/{swimlane_id}/{task_id}', [TaskController::class, 'previousColumn']);
-    Route::apiResource('/gantt-chart', GanttChartController::class);
-    Route::apiResource('/schedule', ScheduleController::class);
-    Route::apiResource('/plan-date', PlanDateController::class);
-    Route::apiResource('/actual-date', ActualDateController::class);
 });
 
 Route::get('/test', function () {

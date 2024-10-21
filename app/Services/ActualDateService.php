@@ -14,6 +14,10 @@ class ActualDateService {
     {
         return $this->actual_date_contract->load();
     }
+    public function show($id)
+    {
+        return $this->actual_date_contract->show($id);
+    }
     public function store($data)
     {
         return $this->actual_date_contract->store($data);

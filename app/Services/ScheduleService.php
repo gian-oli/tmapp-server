@@ -20,4 +20,11 @@ class ScheduleService
     {
         return $this->schedule_contract->store($data);
     }
+    public function update($id, $data) {
+        return $this->schedule_contract->update($id, $data);
+    }
+
+    public function show($id) {
+        return $this->schedule_contract->show($id);
+    }
 }
