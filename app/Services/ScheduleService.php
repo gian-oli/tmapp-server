@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+
 use App\Repositories\Contracts\ScheduleContract;
 
 class ScheduleService
@@ -20,11 +21,17 @@ class ScheduleService
     {
         return $this->schedule_contract->store($data);
     }
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         return $this->schedule_contract->update($id, $data);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         return $this->schedule_contract->show($id);
+    }
+    public function showSchedulesWithRelations($id)
+    {
+        return $this->schedule_contract->showSchedulesWithRelations($id);
     }
 }

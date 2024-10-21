@@ -30,4 +30,6 @@ interface BaseContract
     public function getGanttChart();
     ##actual dates
     public function showActualDates($schedule_id);
+    ##schedules
+    public function showSchedulesWithRelations($id);
 }

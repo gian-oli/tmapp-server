@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanDateRequest;
 use App\Services\PlanDateService;
+use App\Services\ScheduleService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class PlanDateController extends Controller
     use ResponseTrait;
 
     protected $plan_date_service;
-    public function __construct(PlanDateService $plan_date_service)
+    protected $schedule_service;
+    public function __construct(PlanDateService $plan_date_service, ScheduleService $schedule_service)
     {
         $this->plan_date_service = $plan_date_service;
+        $this->schedule_service = $schedule_service;
     }
     /**
      * Display a listing of the resource.
@@ -49,6 +52,7 @@ class PlanDateController extends Controller
         return $this->returnResponse($result);
     }
 
+
     /**
      * Display the specified resource.
      */
@@ -62,7 +66,33 @@ class PlanDateController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $result = $this->successResponse('Plan Date Updated Successfully');
+        $schedule_data = $this->schedule_service->showSchedulesWithRelations($id);
+        $plan_dates = [];
+        try {
+            if (count($schedule_data['plan_dates']) > 0) {
+                $plan_dates = collect($schedule_data['plan_dates'])->map(function ($plan) {
+                    return [
+                        'id' => $plan->id,
+                        'date' => $plan->date
+                    ];
+                });
+                foreach ($plan_dates as $plan) {
+                    $this->destroy($plan['id']);
+                }
+            }
+            foreach ($request->dates as $date) {
+                $data = [
+                    'date' => $date,
+                    'time_spent' => 8.75,
+                    'schedule_id' => $id
+                ];
+                $result['data'][] =  $this->plan_date_service->store($data);
+            }
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**

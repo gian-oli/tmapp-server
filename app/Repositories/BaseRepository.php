@@ -100,7 +100,7 @@ abstract class BaseRepository implements BaseContract
     public function getTasksByColumnAndUser($column_id, $user_id)
     {
         return $this->model
-            ->where([['column_id', $column_id],['user_id', $user_id]])
+            ->where([['column_id', $column_id], ['user_id', $user_id]])
             ->get();
     }
     ##swimlanes
@@ -124,5 +124,10 @@ abstract class BaseRepository implements BaseContract
         return $this->model
             ->where('schedule_id', $schedule_id)
             ->get();
+    }
+    ##schedules
+    public function showSchedulesWithRelations($id)
+    {
+        return $this->model->with(['actual_dates', 'plan_dates'])->where('id', $id)->first();
     }
 }

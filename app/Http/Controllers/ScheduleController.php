@@ -54,7 +54,13 @@ class ScheduleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $result = $this->successResponse('Schedules Display Successfully');
+        try {
+            $result['data'] = $this->schedule_service->showSchedulesWithRelations($id);
+        } catch (\Exception $e) {
+            $result = $this->errorResponse($e);
+        }
+        return $this->returnResponse($result);
     }
 
     /**
@@ -68,7 +74,7 @@ class ScheduleController extends Controller
                 'percent_completed' => $request->percent_completed,
                 'status' => $request->status,
             ];
-            $result['data'] =$this->schedule_service->update($id, $data);
+            $result['data'] = $this->schedule_service->update($id, $data);
         } catch (\Exception $e) {
             $result = $this->errorResponse($e);
         }
