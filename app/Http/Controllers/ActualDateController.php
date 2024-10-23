@@ -71,15 +71,15 @@ class ActualDateController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $result = $this->successResponse('Actual Date Successfully updated');
+        $result = $this->successResponse('Actual Date Updated Successfully');
         $schedule_data = $this->schedule_service->showSchedulesWithRelations($id);
         $actual_dates = [];
         try {
-            if (count($schedule_data['plan_dates']) > 0) {
-                $actual_dates =  collect($schedule_data['plan_dates'])->map(function ($plan) {
+            if (count($schedule_data['actual_dates']) > 0) {
+                $actual_dates = collect($schedule_data['actual_dates'])->map(function ($actual) {
                     return [
-                        'id' => $plan->id,
-                        'date' => $plan->date
+                        'id' => $actual->id,
+                        'date' => $actual->date
                     ];
                 });
                 foreach ($actual_dates as $actual) {
