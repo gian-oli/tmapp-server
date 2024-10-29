@@ -1,11 +1,25 @@
 # nixpacks.toml
 
 [phases.install]
-cmds = ["composer install --optimize-autoloader --no-dev"]
+cmds = [
+  "composer install --optimize-autoloader --no-dev"
+]
 
 [phases.migrate]
-cmds = ["php artisan migrate --force"]
+cmds = [
+  "composer dump-autoload", # ensures autoload files are generated
+  "php artisan migrate --force"
+]
+
+[phases.cache]
+cmds = [
+  "php artisan config:clear",
+  "php artisan route:clear",
+  "php artisan view:clear",
+  "php artisan config:cache",
+  "php artisan route:cache",
+  "php artisan view:cache"
+]
 
 [deploy]
-command = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000} && php artisan config:cache && php artisan route:cache && php artisan view:cache"
-
+command = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
