@@ -1,14 +1,14 @@
 [phases.install]
 cmds = [
-  "composer install --optimize-autoloader --no-dev || { echo 'Composer install failed'; exit 1; }",
-  "if [ ! -f .env ]; then cp .env.example .env; fi",  # Copy .env.example to .env if it does not exist
-  "php artisan key:generate --no-interaction || { echo 'Key generation failed'; exit 1; }",
-  "ls -la /app/vendor || { echo 'Vendor directory not found'; exit 1; }"
+  "composer install --optimize-autoloader --no-dev > composer_install.log 2>&1 || { echo 'Composer install failed'; exit 1; }",
+  "cat composer_install.log",  # Display logs
+  "ls -la /app/vendor || { echo 'Vendor directory not found'; exit 1; }",
+  "php artisan key:generate --no-interaction || { echo 'Key generation failed'; exit 1; }"
 ]
 
 [phases.migrate]
 cmds = [
-  "if [ -d /app/vendor ]; then php artisan migrate --force; else echo 'Vendor directory not found, skipping migrations'; exit 1; fi"
+  "if [ -d /app/vendor ]; then php artisan migrate --force; else echo 'Vendor directory not found, skipping migrations'; fi"
 ]
 
 [phases.cache]
