@@ -3,7 +3,8 @@
 [phases.install]
 cmds = [
   "composer install --optimize-autoloader --no-dev",  # Install dependencies first
-  "ls -la /app/vendor"  # Check if vendor directory is created
+  "ls -la /app/vendor",  # Check if vendor directory is created
+  "php artisan key:generate"  # Generate application key if not already done
 ]
 
 [phases.migrate]
@@ -13,6 +14,7 @@ cmds = [
 
 [phases.cache]
 cmds = [
+  "sleep 2",  # Delay to ensure everything is ready
   "php artisan config:clear",     # Clear the config cache
   "php artisan route:clear",      # Clear the route cache
   "php artisan view:clear",       # Clear the view cache
