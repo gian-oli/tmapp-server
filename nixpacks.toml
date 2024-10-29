@@ -2,14 +2,14 @@
 
 [phases.install]
 cmds = [
-  "composer install --optimize-autoloader --no-dev",  # Install dependencies first
-  "ls -la /app/vendor",  # Check if vendor directory is created
-  "php artisan key:generate"  # Generate application key if not already done
+  "composer install --optimize-autoloader --no-dev || { echo 'Composer install failed'; exit 1; }",  # Install dependencies first
+  "ls -la /app/vendor || { echo 'Vendor directory not found'; exit 1; }",  # Check if vendor directory is created
+  "php artisan key:generate || { echo 'Key generation failed'; exit 1; }"  # Generate application key if not already done
 ]
 
 [phases.migrate]
 cmds = [
-  "php artisan migrate --force"  # Run migrations
+  "if [ -d /app/vendor ]; then php artisan migrate --force; else echo 'Vendor directory not found, skipping migrations'; exit 1; fi"  # Run migrations if vendor exists
 ]
 
 [phases.cache]
