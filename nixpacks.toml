@@ -15,7 +15,16 @@ cmds = [
 [phases.cache]
 cmds = [
   "sleep 2",  # Delay to ensure everything is ready
-  "if [ -d /app/vendor ]; then php artisan config:clear; php artisan route:clear; php artisan view:clear; php artisan config:cache; php artisan route:cache; php artisan view:cache; else echo 'Vendor directory not found, skipping cache commands'; fi"  # Run cache commands if vendor exists
+  "if [ -d /app/vendor ]; then \
+      php artisan config:clear && \
+      php artisan route:clear && \
+      php artisan view:clear && \
+      php artisan config:cache && \
+      php artisan route:cache && \
+      php artisan view:cache; \
+    else \
+      echo 'Vendor directory not found, skipping cache commands'; \
+    fi"
 ]
 
 [deploy]
