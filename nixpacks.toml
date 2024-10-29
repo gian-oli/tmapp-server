@@ -6,12 +6,6 @@ cmds = ["composer install --optimize-autoloader --no-dev"]
 [phases.migrate]
 cmds = ["php artisan migrate --force"]
 
-[phases.cache]
-cmds = [
-  "php artisan config:cache",
-  "php artisan route:cache",
-  "php artisan view:cache"
-]
-
 [deploy]
-command = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
+command = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000} && php artisan config:cache && php artisan route:cache && php artisan view:cache"
+
